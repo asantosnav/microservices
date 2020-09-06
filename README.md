@@ -16,6 +16,9 @@ In this project operationalize a Machine Learning Microservice API, a Python fla
 - make_prediction.sh: Sends necessary JSON data as input to make a prediction (must be run inside a container)
 - upload_docker.sh: Upload container to Docker repo
 
+Inside output_txt_files can be found:
+- docker_out.txt: Terminal output when making a prediction inside Docker
+- kubernetes_out.txt: Terminal output when making a prediction inside Kubernetes
 
 
 ## Setup the Environment
