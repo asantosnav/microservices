@@ -10,7 +10,8 @@ dockerpath=asantosnav/api
 
 # Step 2:  
 # Authenticate & tag 
-docker login --username asantosnav -p jttV8M42ZaGJc9Q
+# Substitute user and password
+docker login --username asantosnav -p **************
 docker tag api $dockerpath
 echo "Docker ID and Image: $dockerpath"
 
