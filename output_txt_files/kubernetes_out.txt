@@ -1,39 +1,54 @@
+-------------------OUTPUT IN THE MAIN TERMINAL--------------------------------------------------------------------------
 (.devops_new) angel@Angel-SATELLITE:~/Documentos/Formación/Udacity/Cloud DevOps 
 Engineer/4 - Microservices/Project/Source files/DevOps_Microservices/project-ml-microservice-kubernetes$ minikube start
 😄  minikube v1.12.3 en Linuxmint 20
-✨  Automatically selected the docker driver
+✨  Using the docker driver based on existing profile
 👍  Starting control plane node minikube in cluster minikube
-🔥  Creating docker container (CPUs=2, Memory=2200MB) ...
+🔄  Restarting existing docker container for "minikube" ...
 🐳  Preparando Kubernetes v1.18.3 en Docker 19.03.8...
 🔎  Verifying Kubernetes components...
 🌟  Enabled addons: default-storageclass, storage-provisioner
 🏄  Done! kubectl is now configured to use "minikube"
 (.devops_new) angel@Angel-SATELLITE:~/Documentos/Formación/Udacity/Cloud DevOps 
 Engineer/4 - Microservices/Project/Source files/DevOps_Microservices/project-ml-microservice-kubernetes$ sh run_kubernetes.sh
-pod/apidemo created
-NAME      READY   STATUS    RESTARTS   AGE
-apidemo   0/1     Pending   0          0s
-error: unable to forward port because pod is not running. Current status=Pending
-(.devops_new) angel@Angel-SATELLITE:~/Documentos/Formación/Udacity/Cloud DevOps 
-Engineer/4 - Microservices/Project/Source files/DevOps_Microservices/project-ml-microservice-kubernetes$ kubectl get pods
-NAME      READY   STATUS              RESTARTS   AGE
-apidemo   0/1     ContainerCreating   0          15s
-(.devops_new) angel@Angel-SATELLITE:~/Documentos/Formación/Udacity/Cloud DevOps 
-Engineer/4 - Microservices/Project/Source files/DevOps_Microservices/project-ml-microservice-kubernetes$ kubectl get pods
-NAME      READY   STATUS              RESTARTS   AGE
-apidemo   0/1     ContainerCreating   0          80s
-(.devops_new) angel@Angel-SATELLITE:~/Documentos/Formación/Udacity/Cloud DevOps 
-Engineer/4 - Microservices/Project/Source files/DevOps_Microservices/project-ml-microservice-kubernetes$ kubectl get pods
-NAME      READY   STATUS    RESTARTS   AGE
-apidemo   1/1     Running   0          5m56s
-(.devops_new) angel@Angel-SATELLITE:~/Documentos/Formación/Udacity/Cloud DevOps 
-Engineer/4 - Microservices/Project/Source files/DevOps_Microservices/project-ml-microservice-kubernetes$ sh run_kubernetes.sh
 Error from server (AlreadyExists): pods "apidemo" already exists
 NAME      READY   STATUS    RESTARTS   AGE
-apidemo   1/1     Running   0          6m5s
+apidemo   1/1     Running   4          30h
 Forwarding from 127.0.0.1:8000 -> 80
 Forwarding from [::1]:8000 -> 80
 Handling connection for 8000
 
 
+
+-------------------OUTPUT IN THE PREDICTION TERMINAL--------------------------------------------------------------------
+
+angel@Angel-SATELLITE:~/Documentos/Formación/Udacity/Cloud DevOps Engineer/4 - M
+icroservices/Project/Source files/DevOps_Microservices/project-ml-microservice-kubernetes$ sh make_prediction.sh
+Port: 8000
+{
+  "prediction": [
+    20.35373177134412
+  ]
+}
+angel@Angel-SATELLITE:~/Documentos/Formación/Udacity/Cloud DevOps Engineer/4 - M
+icroservices/Project/Source files/DevOps_Microservices/project-ml-microservice-kubernetes$ kubectl logs apidemo
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 190-501-842
+[2020-09-07 18:00:50,172] INFO in app: JSON payload: 
+{'CHAS': {'0': 0}, 'RM': {'0': 6.575}, 'TAX': {'0': 296.0}, 'PTRATIO': {'0': 15.3}, 'B': {'0': 396.9}, 'LSTAT': {'0': 4.98}}
+[2020-09-07 18:00:50,277] INFO in app: Inference payload DataFrame: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2020-09-07 18:00:50,310] INFO in app: Scaling Payload: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2020-09-07 18:00:50,318] INFO in app: Output prediction: [20.35373177134412]
+127.0.0.1 - - [07/Sep/2020 18:00:50] "POST /predict HTTP/1.1" 200 -
 
